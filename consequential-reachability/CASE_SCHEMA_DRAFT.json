@@ -1,0 +1,518 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Consequential Reachability Benchmark \u2014 candidate trial schema (working title)",
+  "type": "object",
+  "required": [
+    "benchmark",
+    "case_id",
+    "version",
+    "status",
+    "title",
+    "source",
+    "environment",
+    "policy",
+    "effect_routes",
+    "setup",
+    "actions",
+    "oracle",
+    "limitations",
+    "dependence_discovery",
+    "dependency_graph",
+    "revocation_events"
+  ],
+  "properties": {
+    "benchmark": {
+      "const": "consequential-reachability-benchmark-draft"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^CR-[0-9]{2,4}$"
+    },
+    "version": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "candidate",
+        "under_review",
+        "accepted",
+        "retired"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "author",
+        "provenance",
+        "license"
+      ],
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "provenance": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "required": [
+        "scope",
+        "initial_state",
+        "principals"
+      ],
+      "properties": {
+        "scope": {
+          "enum": [
+            "synthetic_fixture",
+            "integrated_sandbox",
+            "observed_deployment"
+          ]
+        },
+        "initial_state": {
+          "type": "object"
+        },
+        "principals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trust_assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "required": [
+        "independent_rule_text",
+        "rules"
+      ],
+      "properties": {
+        "independent_rule_text": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unknown_handling": {
+          "type": "string"
+        }
+      }
+    },
+    "dependence_discovery": {
+      "type": "object",
+      "description": "Declares how the case's dependence graph is known: only as declared in the case, or to be discovered by the system under test against a pinned ground-truth graph. Revocation deltas computed under different scopes are different measurements and must not be compared numerically.",
+      "required": [
+        "scope"
+      ],
+      "properties": {
+        "scope": {
+          "enum": [
+            "declared_only",
+            "system_discovered",
+            "mixed"
+          ]
+        },
+        "declared_graph_complete": {
+          "type": "boolean"
+        },
+        "ground_truth_graph_digest": {
+          "type": "string"
+        },
+        "discovery_surfaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "dependency_graph": {
+      "type": "object",
+      "description": "The case's dependence graph as a first-class, machine-readable object. An edge {from, to} means: `from` depends on `to` (depends_on). The graph must agree with the depends_on declarations in setup and actions; validate_case.py checks the agreement, the references, and the temporal state.",
+      "required": [
+        "nodes",
+        "edges"
+      ],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "kind"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "request",
+                  "action",
+                  "authority",
+                  "external"
+                ]
+              }
+            }
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from",
+              "to"
+            ],
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "depends_on"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "revocation_events": {
+      "type": "array",
+      "description": "Authority revocations placed on the setup timeline. A revocation at step r is in effect at every action position after r. Each event must match a revocation in setup at the same step (checked by validate_case.py).",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "step",
+          "revokes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "step": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "revokes": {
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "effect_routes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "inventory_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "inventory_status": {
+            "enum": [
+              "measured",
+              "unmeasured",
+              "unknown"
+            ]
+          },
+          "observer": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "setup": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "step",
+          "event"
+        ],
+        "properties": {
+          "step": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "event": {
+            "type": "string",
+            "minLength": 1
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "request_id": {
+                "type": "string"
+              },
+              "depends_on": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "action_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "expected_contested": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "class",
+          "principal",
+          "action",
+          "expected_decision",
+          "expected_effect",
+          "falsifier"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "class": {
+            "enum": [
+              "authorized",
+              "forbidden",
+              "held",
+              "uncertain"
+            ]
+          },
+          "principal": {
+            "type": "string"
+          },
+          "action": {
+            "type": "object"
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Ids of dependency_graph nodes this action directly relies on. Must equal the graph edges leaving this action's node (checked by validate_case.py)."
+          },
+          "at_step": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Timeline position at which the action is probed: setup steps and revocation events with step < at_step have occurred. Defaults to one past the last setup step."
+          },
+          "expected_decision": {
+            "enum": [
+              "ALLOW",
+              "REFUSE",
+              "HOLD",
+              "UNKNOWN"
+            ]
+          },
+          "expected_effect": {
+            "enum": [
+              "PRESENT",
+              "ABSENT",
+              "UNKNOWN"
+            ]
+          },
+          "expected_reason": {
+            "type": "string"
+          },
+          "falsifier": {
+            "type": "string"
+          },
+          "required_evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "oracle": {
+      "type": "object",
+      "required": [
+        "kind",
+        "independence_status",
+        "determination_method"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "specified_transition_semantics",
+            "independent_effect_observer",
+            "combined"
+          ]
+        },
+        "independence_status": {
+          "enum": [
+            "proposed_by_author",
+            "peer_reviewed",
+            "independently_measured"
+          ]
+        },
+        "determination_method": {
+          "type": "string"
+        },
+        "oracle_artifact_digest": {
+          "type": "string"
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "properties": {
+        "actions": {
+          "contains": {
+            "properties": {
+              "class": {
+                "const": "authorized"
+              }
+            },
+            "required": [
+              "class"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "actions": {
+          "contains": {
+            "properties": {
+              "class": {
+                "const": "forbidden"
+              }
+            },
+            "required": [
+              "class"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dependence_discovery": {
+            "properties": {
+              "scope": {
+                "const": "declared_only"
+              }
+            },
+            "required": [
+              "scope"
+            ]
+          }
+        },
+        "required": [
+          "dependence_discovery"
+        ]
+      },
+      "then": {
+        "properties": {
+          "dependence_discovery": {
+            "required": [
+              "declared_graph_complete"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dependence_discovery": {
+            "properties": {
+              "scope": {
+                "enum": [
+                  "system_discovered",
+                  "mixed"
+                ]
+              }
+            },
+            "required": [
+              "scope"
+            ]
+          }
+        },
+        "required": [
+          "dependence_discovery"
+        ]
+      },
+      "then": {
+        "properties": {
+          "dependence_discovery": {
+            "required": [
+              "ground_truth_graph_digest",
+              "discovery_surfaces"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
