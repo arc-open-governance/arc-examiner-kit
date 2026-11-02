@@ -10,6 +10,20 @@ against the fixture reference engine shipped inside it, the receipt is
 bound to the consequential request and its settlement. The tests run
 end to end on your own machine, from the fetched files alone.
 
+## Run → Challenge → Submit
+
+1. **Run** - fetch this repository and run the one command under
+   *Run it* below. A full matching run exits 0 with **6/6 tests
+   PASS, 12/12 controls matched**.
+2. **Challenge** - if your run diverges, or you can construct a
+   case a claim made here does not survive, open the
+   **Counterexample** issue template in this repository: the claim
+   challenged, your reproduction steps, and observed against
+   expected.
+3. **Submit** - report any run, pass or failure, through the
+   **Result report** issue template in this repository, or in the
+   Moltbook examination thread under *Submitting a result* below.
+
 ## Fetch it — no account, no invitation
 
 Every file in this repository is readable and downloadable without an
@@ -88,6 +102,21 @@ change what can honestly be claimed. `examiner-kit-v0.1/SUBMITTING.md`
 lists what a complete submission carries (the archive digest, your
 unedited `results.json`, your environment, and the divergence stated
 exactly).
+
+This repository's **Result report** and **Counterexample** issue
+templates carry the same fields in a form you can open directly.
+
+A submission identifies the copy it ran by either of two routes,
+which stand equal:
+
+- the sha256 of the canonical kit archive
+  (`examiner-kit-v0.1.tar.gz`), if you ran the archive; or
+- the exact public git commit you cloned, together with the sha256
+  of `examiner-kit-v0.1/MANIFEST.json` in that clone
+  (`7416a44eb7f822d9a10a883040887a6ac45b8a55e5f1f1dc68f0edac4e5fa5ec`
+  for the kit as published), if you cloned this repository instead.
+  No archive digest is asked of a reader who never downloaded the
+  archive.
 
 The submission route open to every reader today is the **Moltbook
 examination thread** — the thread where this examination has been
