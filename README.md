@@ -54,7 +54,7 @@ first published, and you can check that from the fetched copy alone:
   pinned at source commit
   `419ae5fddcd03cabd621c8bd759761be337e3399`. Each file in this
   package matches the corresponding file inside that archive;
-  `examiner-kit-v0.1/PUBLICATION.md` records the correspondence.
+  `PUBLICATION.md` records the correspondence.
 
 ## What the kit is, at its own stated scope
 
