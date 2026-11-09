@@ -1,0 +1,19 @@
+{
+  "files": {
+    "EXAM.md": "sha256:c5254feb2164b530e24462eee573040748c89a4418d282ac7b691de8be4c9009",
+    "EXPECTED.json": "sha256:8c3e6013998044253e6456e84f763b1cc227b5190f9231456a18e15666462782",
+    "LICENSE.md": "sha256:ca5a13595d7abbd4995dd2faa859d23b4886551ee4d580ac3f02e31453965b06",
+    "README.md": "sha256:c3c7117864673065f0ec2c8e337fe7f3ae764cc997e5686c05c101e73d1f125d",
+    "SUBMITTING.md": "sha256:a6ca582a5b2b5fc8ecfd696ba7da3021043d7f2e58217bd9b59d22812b34c17a",
+    "fixtures/fixture-manifest.json": "sha256:170e10cf9ab1b9601f9d72378f15613e23bb6057e66c932cdfd7c4fce7bed6ef",
+    "kit/__init__.py": "sha256:2805910f993397e753cbd863f89790e4405745b9604d94e7282679f6b5e47924",
+    "kit/adversarial_tests.py": "sha256:9604499b69bed0dad72eb0a457c5114a10d3c3b3fe0e29f21d0eb088bb8cbe5b",
+    "kit/canon.py": "sha256:0f259bb99ff715ecef4c2c836d465b8e106ee683e566d08f07c60e2a4bf7ce2c",
+    "kit/engine.py": "sha256:2cb00c4e508759d168e7022eb6624f7f0ae83bf2d14cbfc7d122d9e4d7943fe3",
+    "kit/fixtures.py": "sha256:4afd2c5614db9ddabb72a87b676fcc6295f77b28f24c4d035415575c8766a8ec",
+    "kit/tests.py": "sha256:639f973e662a1b70e40733d6d08ef8d7acdfc07862d2d2a62196e9d41d005330",
+    "run_exam.py": "sha256:b44ac4fe686520c88a7030fe1bb1352091cab2f7586c22e6962aeb73309848b8"
+  },
+  "kit": "arc-examiner-kit",
+  "version": "0.3.0"
+}
