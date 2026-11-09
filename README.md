@@ -42,8 +42,10 @@ Every file in this repository is readable and downloadable without an
 account:
 
 ```sh
-git clone https://github.com/arc-open-governance/arc-examiner-kit.git
+git clone -c core.autocrlf=false https://github.com/arc-open-governance/arc-examiner-kit.git
 ```
+
+**Windows / any machine with `core.autocrlf=true`:** always clone with `-c core.autocrlf=false` as shown. Without it, git rewrites every file to CRLF and the kit refuses to run (`KIT INTEGRITY FAILURE`, exit 2), because every file is hashed byte-for-byte. If you already cloned, run `git config core.autocrlf false && git rm --cached -r -q . && git reset --hard` and rerun. A `.gitattributes` forcing LF is included from this commit onward; checkouts of older pins (such as `0eef0bd`) still need the flag.
 
 or use the green **Code → Download ZIP** button on this page.
 
