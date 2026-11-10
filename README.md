@@ -20,18 +20,23 @@ This repository carries three versions of the kit, side by side:
   scope before the correction was written (see *What changed in v0.2*
   below). The six original tests and their frozen expectations are
   unchanged.
-- **`examiner-kit-v0.3/`** — the current kit. v0.3 corrects the five
-  fixture weaknesses a frozen comparative examination measured in
-  v0.2, and declares one further weakness a standing limitation
-  rather than correcting it (see *What changed in v0.3* below). The
-  six original tests and their frozen expectations are unchanged.
+- **`examiner-kit-v0.3/`** — the previous kit, preserved exactly as
+  published. v0.3 corrects the five fixture weaknesses a frozen
+  comparative examination measured in v0.2, and declares one further
+  weakness a standing limitation rather than correcting it (see *What
+  changed in v0.3* below). The six original tests and their frozen
+  expectations are unchanged.
+- **`examiner-kit-v0.3.1/`** — the current kit. v0.3.1 makes one engine
+  change, actor currency at execution, found by an outside examiner of
+  v0.3, and adds adversarial test A4 (see *What changed in v0.3.1*
+  below). Every v0.3 expectation is unchanged.
 
 ## Run → Challenge → Submit
 
 1. **Run** — fetch this repository and run the one command under
-   *Run it* below. A full matching run of v0.3 exits 0 with **9/9
-   tests PASS, 31/31 controls matched** (the six original tests,
-   12/12 controls, plus the three adversarial tests, 19/19 checks).
+   *Run it* below. A full matching run of v0.3.1 exits 0 with **10/10
+   tests PASS, 34/34 controls matched** (the six original tests,
+   12/12 controls, plus the four adversarial tests, 22/22 checks).
 2. **Challenge** — if your run diverges, or you can construct a
    case a claim made here does not survive, open the
    **Counterexample** issue template in this repository: the claim
@@ -57,7 +62,7 @@ or use the green **Code → Download ZIP** button on this page.
 ## Run it
 
 ```sh
-cd arc-examiner-kit/examiner-kit-v0.3
+cd arc-examiner-kit/examiner-kit-v0.3.1
 python3 run_exam.py
 ```
 
@@ -65,15 +70,20 @@ One entry command. Python 3, standard library only, fully offline —
 no network, no keys, no accounts, no credentials. The runner first
 verifies the kit's files against the kit's own `MANIFEST.json`,
 verifies the frozen fixtures, runs the six tests (each with a positive
-and a negative control) and the three adversarial tests, compares every
+and a negative control) and the four adversarial tests, compares every
 outcome against `EXPECTED.json`, writes `results.json`, and exits 0
 only if every control matched its frozen expectation.
 
-A full matching run of the kit as published exits 0 and reports
-**9/9 tests PASS, 31/31 controls matched**, with `results_digest`
-`sha256:ce4dc76de8eb5a27b417f64360c286d159da979eb858033423edfdef97f2af32`.
+A full matching run of the current kit exits 0 and reports
+**10/10 tests PASS, 34/34 controls matched**, with `results_digest`
+`sha256:f51c98c7dcb7489b2cd17c60875c4a4bf9625f204b3eb51c15cb3d449092b83f`.
 Two runs anywhere produce byte-identical `results.json`. A divergence
 is a finding — see *Submitting a result* below.
+
+To run v0.3 instead, use `cd arc-examiner-kit/examiner-kit-v0.3` and the
+same command; a full matching v0.3 run reports **9/9 tests PASS, 31/31
+controls matched**, with `results_digest`
+`sha256:ce4dc76de8eb5a27b417f64360c286d159da979eb858033423edfdef97f2af32`.
 
 To run v0.2 instead, use `cd arc-examiner-kit/examiner-kit-v0.2` and
 the same command; a full matching v0.2 run reports **8/8 tests PASS,
@@ -125,6 +135,36 @@ is recorded in the kit's publication record. No outside examiner has
 yet examined the v0.2 correction itself. Running v0.2, challenging
 its claims, and submitting the result — pass or failure — is the
 examination, and it is open to every reader.
+
+## What changed in v0.3.1
+
+v0.3.1 makes exactly one engine change and adds one adversarial test.
+
+**Actor currency at execution.** v0.3 authenticated the request's actor
+at `propose()` only, while `execute()` re-checked the approver's current
+authorization. So an actor withdrawn after proposing still had its
+approved, released request commit, and the engine's `withdraw_principal`
+docstring ("execute() re-checks currency") overstated what withdrawal
+did. An outside examiner, **codexmainbizmac**, found this on 2026-11-10
+(network-denied sandbox, public API only), and the publisher reproduced
+it. v0.3.1's `execute()` re-checks that the actor is still a registered,
+active actor-role principal, refusing otherwise with
+`actor_no_longer_authorized`.
+
+**A4** freezes the contract in both directions: a withdrawn actor is
+refused with no effect and no receipt, a current actor still commits,
+and withdrawal after the effect neither rolls it back nor invalidates
+the receipt. Against the unmodified v0.3 engine, A4's withdrawn-actor
+control fails. Every T1-T6 and A1-A3 expectation is unchanged. v0.3 is
+preserved byte-for-byte beside it. **v0.3.1 awaits independent
+examination.**
+
+Verify it from a clone: `examiner-kit-v0.3.1/MANIFEST.json` sha256
+`1312b82346fc462cbd87328e4cbf2b0398fd926b9a45fe79c398f41f1d8d7bdc`;
+`results.json` sha256
+`e4c95479529735d63fb7ec85b7299db54a9f73d90c9f047b424106c3ca7f18d6`.
+No release archive is published for v0.3.1 yet; identify your copy by
+commit plus that MANIFEST digest.
 
 ## What changed in v0.3
 
