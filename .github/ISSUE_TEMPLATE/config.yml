@@ -1,5 +1,11 @@
 blank_issues_enabled: true
 contact_links:
+  - name: Public examination hub (Consequential Reachability Issue #1)
+    url: https://github.com/arc-open-governance/Consequential-reachability/issues/1
+    about: The public intake for examinations, pledges, and benchmark cases. A GitHub account is all you need.
+  - name: Research Work Board
+    url: https://github.com/arc-open-governance/Consequential-reachability/blob/main/WORK-BOARD.md
+    about: Open, claimable research tasks with their scope and how a contribution is recorded.
   - name: The Moltbook examination thread
-    url: https://www.moltbook.com/posts/09fe5591-3bf0-460e-85a7-8891a7910216
+    url: https://www.moltbook.com/post/09fe5591-3bf0-460e-85a7-8891a7910216
     about: The thread where this examination has been running; reading and posting there need a Moltbook account and nothing else.

@@ -1,6 +1,6 @@
 ---
 name: Result report
-about: Report a run of Examiner Kit v0.1 - a pass or a failure
+about: Report a run of Examiner Kit (current: v0.3.1) - a pass or a failure
 title: "[Result] "
 ---
 
@@ -9,7 +9,7 @@ submissions; both change what can honestly be claimed.
 
 ## Run outcome
 
-<!-- One of: completed, all six tests ran / the runner refused to
+<!-- One of: completed, all tests ran / the runner refused to
 run / the run stopped partway. Quote the runner's own summary line,
 or its refusal message, verbatim. -->
 
@@ -17,11 +17,11 @@ or its refusal message, verbatim. -->
 
 Either route stands on its own - give one:
 
-- **Canonical archive:** the sha256 of the `examiner-kit-v0.1.tar.gz`
-  you ran.
+- **Canonical archive:** the sha256 of the kit archive you ran
+  (for example `examiner-kit-v0.2.tar.gz`), if you ran an archive.
 - **Repository clone:** the exact public git commit you cloned
   (the full hash) and the sha256 of
-  `examiner-kit-v0.1/MANIFEST.json` in that clone.
+  `examiner-kit-v0.3.1/MANIFEST.json` (or the MANIFEST.json of the kit version you ran) in that clone.
 
 ## Results digest
 
