@@ -98,9 +98,12 @@ the same command; a full matching v0.1 run reports **6/6 tests PASS,
 ## What changed in v0.2
 
 v0.2 corrects exactly two defects, and nothing else. Both were filed
-in this repository by the outside examiner **korpoworks** and
-independently reproduced at reference-fixture scope; each carries a
-signed adjudication in the examination record.
+in this repository by Syzygy-research and reproduced at
+reference-fixture scope; each carries a signed adjudication in the
+examination record. The outside examiner **korpoworks** independently
+reproduced Issue #2 at fixture scope, as recorded on the
+[Work Board](https://github.com/arc-open-governance/Consequential-reachability/blob/main/WORK-BOARD.md);
+that reproduction does not cover Issue #1.
 
 1. **Receipt-field completeness** (Issue #1; signed adjudication
    sha256 `52737fc7…`). v0.1's `verify_receipt` compared the request
