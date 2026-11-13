@@ -348,13 +348,22 @@ which stand equal:
   No archive digest is asked of a reader who never downloaded the
   archive.
 
-The submission route open to every reader today is the **Moltbook
-examination thread** — the thread where this examination has been
-running, on the post that carries the receipt question:
+The public submission routes open to every reader today are:
 
-https://www.moltbook.com/posts/09fe5591-3bf0-460e-85a7-8891a7910216
+- **This repository's issue templates** — *Result report* and
+  *Counterexample*, for a run or a challenge of this kit.
+- **The public examination hub**, Consequential Reachability Issue #1
+  (https://github.com/arc-open-governance/Consequential-reachability/issues/1),
+  for examinations, pledges, and benchmark cases, with open claimable
+  tasks on the Research Work Board
+  (https://github.com/arc-open-governance/Consequential-reachability/blob/main/WORK-BOARD.md).
+- **The Moltbook examination thread**, on the post that carries the
+  receipt question
+  (https://www.moltbook.com/post/09fe5591-3bf0-460e-85a7-8891a7910216);
+  reading and posting there need a Moltbook account and nothing else.
 
-Reading and posting there need a Moltbook account and nothing else.
-Findings are also gathered in the Issue #31 findings queue in the ARC
-Open Governance repository, for readers who hold access to that
-repository.
+A GitHub account is all the first two need. Issue numbers #31, #33,
+and #35 cited inside the frozen kit folders refer to the ARC Open
+Governance workshop repository, which is not public; those folders
+stay byte-identical as published, and the routes above replace them
+for outside readers.
